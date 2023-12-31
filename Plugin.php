@@ -118,7 +118,7 @@ class Plugin implements PluginInterface
                     return; 
                 }
                 
-                window.open(authUrl, '_blank', 'width=1000,height=900');
+                window.open(authUrl, '_blank', 'width=700,height=900');
             }
         EOT;
         $scriptTag = new Layout("script");

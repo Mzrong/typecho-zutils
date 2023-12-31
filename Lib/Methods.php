@@ -141,23 +141,27 @@ class Methods
 
             if ($row) {
                 // 存在记录则更新一次，会将openid绑定到当前登录的用户
-                $this->db->sql()->where("key = %s", $openid)->rows(
-                    [
-                        "time"      =>  time(),
-                        "uid"       =>  $uid,
-                        "content"   =>  json_encode(["platform"=>"qq"])
-                    ]
-                )->update("table.{$this->confTable}");
+                $this->db->query(
+                    $this->db->sql()->where("key = %s", $openid)->rows(
+                        [
+                            "time"      =>  time(),
+                            "uid"       =>  $uid,
+                            "content"   =>  json_encode(["platform"=>"qq"])
+                        ]
+                    )->update("table.{$this->confTable}")
+                );
             } else {
                 // 将token更新到数据库
-                $this->db->sql()->rows(
-                    [
-                        "key"   =>  $openid,
-                        "uid"   =>  $uid,
-                        "content"   =>  json_encode(["platform"=>"qq"]),
-                        "time"  =>  time()
-                    ]
-                )->insert("table.{$this->confTable}");
+                $this->db->query(
+                    $this->db->sql()->rows(
+                        [
+                            "key"   =>  $openid,
+                            "uid"   =>  $uid,
+                            "content"   =>  json_encode(["platform"=>"qq"]),
+                            "time"  =>  time()
+                        ]
+                    )->insert("table.{$this->confTable}")
+                );
             }
 
             return true;
