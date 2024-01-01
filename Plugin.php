@@ -1,5 +1,4 @@
 <?php
-
 namespace TypechoPlugin\ZUtils;
 
 use Typecho\Common;
@@ -185,13 +184,19 @@ class Plugin implements PluginInterface
         $doc->html("QQ互联文档：<a href='https://connect.qq.com/index.html' target='_blank'>https://connect.qq.com/index.html</a>");
         $form->addItem($doc);
 
-        $input = new Text("qqappid", null, null, _t("APP ID"), "QQ互联中网站应用的APP ID");
+        $input = new Text("qqappid", null, null, _t("APP ID"));
+        $input->input->setAttribute("placeholder", "QQ互联中网站应用的APP ID");
+        $input->addRule("alphaNumeric", _t("仅能包含字母和数字"));
         $form->addInput($input);
 
-        $input = new Text("qqappkey", null, null, _t("APP Key"), "QQ互联中网站应用的APP Key");
+        $input = new Text("qqappkey", null, null, _t("APP Key"));
+        $input->input->setAttribute("placeholder", "QQ互联中网站应用的APP Key");
+        $input->addRule("alphaNumeric", _t("仅能包含字母和数字"));
         $form->addInput($input);
 
-        $input = new Text("qqredirect", null, null, _t("授权回调地址"), "授权回调地址。填写完授权回调地址后需要手动点击下方【注册回调路由】按钮向系统注册路由。<br />建议先保存设置再点击【注册回调路由】按钮");
+        $input = new Text("qqredirect", null, null, _t("授权回调地址"), "填写完授权回调地址后需要手动点击下方【注册回调路由】按钮向系统注册路由。<br />建议先保存设置再点击【注册回调路由】按钮");
+        $input->input->setAttribute("placeholder", "授权回调地址");
+        $input->addRule("url", _t("url格式不正确"));
         $form->addInput($input);
 
         $layout = new Layout("div");
@@ -203,7 +208,6 @@ class Plugin implements PluginInterface
         $regRouteBtn->setAttribute("class", "--primary-btn");
         $regRouteBtn->setAttribute("formaction", Common::url('/options-plugin.php?config=ZUtils&action=addQqCallbackRoute', Helper::options()->adminUrl));
         $regRouteBtn->appendTo($layout);
-
         $form->addItem($layout);
 
         $label = new Layout("h2");
@@ -319,12 +323,12 @@ class Plugin implements PluginInterface
         $param = $_POST;
 
         if (empty($param['qqredirect'])) {
-            Widget::widget("Widget_Notice")->set(_t("回调地址不能为空"), "error");
+            Widget::widget("Widget\Notice")->set(_t("回调地址不能为空"), "error");
             return;
         }
 
-        if (!str_starts_with($param["qqredirect"], "http")) {
-            Widget::widget("Widget_Notice")->set(_t("回调地址格式不正确"), "error");
+        if (substr($param["qqredirect"], 0, 4) != "http") {
+            Widget::widget("Widget\Notice")->set(_t("回调地址格式不正确"), "error");
             return;
         }
 
@@ -333,6 +337,6 @@ class Plugin implements PluginInterface
         // 注入QQ登录回调的路由
         Helper::addRoute("qqLoginResponse", $uri["path"], "TypechoPlugin\ZUtils\Route\Route", "qqLoginResponse");
 
-        Widget::widget("Widget_Notice")->set(_t("注入成功！"), "success");
+        Widget::widget("Widget\Notice")->set(_t("注入成功！"), "success");
     }
 }
