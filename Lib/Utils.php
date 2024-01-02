@@ -1,4 +1,5 @@
 <?php
+
 namespace TypechoPlugin\ZUtils\Lib;
 
 /**
@@ -45,5 +46,35 @@ class Utils
 
         $chars = str_shuffle($chars);
         return substr($chars, 0, $length);
+    }
+
+    /**
+     * 获取客户端的ip
+     */
+    public static function getIp(): string
+    {
+        if (isset($_SERVER)) {
+            if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+                $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+            } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
+                $ip = $_SERVER["HTTP_CLIENT_IP"];
+            } else {
+                $ip = $_SERVER["REMOTE_ADDR"];
+            }
+        } else {
+            if (getenv("HTTP_X_FORWARDED_FOR")) {
+                $ip = getenv("HTTP_X_FORWARDED_FOR");
+            } else if (getenv("HTTP_CLIENT_IP")) {
+                $ip = getenv("HTTP_CLIENT_IP");
+            } else {
+                $ip = getenv("REMOTE_ADDR");
+            }
+        }
+
+        if (preg_match('/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/', $ip)) {
+            return $ip;
+        }
+
+        return "127.0.0.1";
     }
 }

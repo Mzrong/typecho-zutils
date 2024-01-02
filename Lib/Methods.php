@@ -4,14 +4,6 @@ namespace TypechoPlugin\ZUtils\Lib;
 
 use Typecho\Db;
 
-if (phpversion() < 7.4) {
-    exit(sprintf("Plugin `Utils` require PHP lgt 7.4. but your PHP version was (%s)", phpversion()));
-}
-
-if (!defined('__TYPECHO_ROOT_DIR__')) {
-    exit;
-}
-
 /**
  * 一些通用的方法
  *
@@ -57,7 +49,7 @@ class Methods
     public function checkTable(): bool
     {
         try {
-            return (bool) $this->db->fetchRow(
+            return (bool)$this->db->fetchRow(
                 $this->db->query("SHOW TABLES LIKE '{$this->prefix}{$this->confTable}'")
             );
         } catch (\Exception) {
@@ -144,9 +136,9 @@ class Methods
                 $this->db->query(
                     $this->db->sql()->where("key = %s", $openid)->rows(
                         [
-                            "time"      =>  time(),
-                            "uid"       =>  $uid,
-                            "content"   =>  json_encode(["platform"=>"qq"])
+                            "time" => time(),
+                            "uid" => $uid,
+                            "content" => json_encode(["platform" => "qq"])
                         ]
                     )->update("table.{$this->confTable}")
                 );
@@ -155,10 +147,10 @@ class Methods
                 $this->db->query(
                     $this->db->sql()->rows(
                         [
-                            "key"   =>  $openid,
-                            "uid"   =>  $uid,
-                            "content"   =>  json_encode(["platform"=>"qq"]),
-                            "time"  =>  time()
+                            "key" => $openid,
+                            "uid" => $uid,
+                            "content" => json_encode(["platform" => "qq"]),
+                            "time" => time()
                         ]
                     )->insert("table.{$this->confTable}")
                 );
@@ -182,7 +174,7 @@ class Methods
                 $this->db->sql()->from("table.{$this->confTable}")->select("*")->where("uid = ?", $uid)->limit(1)
             );
 
-            return (bool) $row;
+            return (bool)$row;
         } catch (\Exception) {
             return false;
         }

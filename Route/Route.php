@@ -1,11 +1,12 @@
 <?php
+
 namespace TypechoPlugin\ZUtils\Route;
 
-use TypechoPlugin\ZUtils\Lib\Methods;
+use Widget\Base;
 use Utils\Helper;
 use Typecho\Cookie;
+use TypechoPlugin\ZUtils\Lib\Methods;
 use TypechoPlugin\ZUtils\Lib\QSdk;
-use Widget\Base;
 
 /**
  * 插件路由文件。插件内生成的路由交给Route这个类来管理
@@ -87,7 +88,12 @@ class Route extends Base
 
     }
 
-    private function renderHtml(bool $status) {
+    /**
+     * 输出QQ绑定状态的html
+     * @param bool $status
+     */
+    private function renderHtml(bool $status)
+    {
         $css = <<<EOT
             <style rel="stylesheet">
                 * { 
