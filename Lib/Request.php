@@ -56,4 +56,9 @@ class Request
     {
         return self::_request($url);
     }
+
+    public static function _post(string $url, array $data): bool|string
+    {
+        return self::_request($url, $data, "post");
+    }
 }

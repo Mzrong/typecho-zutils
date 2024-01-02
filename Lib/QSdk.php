@@ -1,4 +1,5 @@
 <?php
+
 namespace TypechoPlugin\ZUtils\Lib;
 
 use Typecho\Cookie;
@@ -27,11 +28,11 @@ class QSdk
         $config = array_merge(
             $config,
             [
-                "response_type" =>  "code",
-                "state"         =>  $state
+                "response_type" => "code",
+                "state" => $state
             ]
         );
-        return "https://graph.qq.com/oauth2.0/authorize?" .  http_build_query($config);
+        return "https://graph.qq.com/oauth2.0/authorize?" . http_build_query($config);
     }
 
     /**
@@ -65,13 +66,13 @@ class QSdk
     {
         try {
             $config = [
-                "grant_type"    =>  "authorization_code",
-                "client_id"     =>  $options->qqappid,
-                "client_secret" =>  $options->qqappkey,
-                "code"          =>  $code,
-                "redirect_uri"  =>  $options->qqredirect,
-                "fmt"           =>  "json",
-                "need_openid"   =>  1
+                "grant_type" => "authorization_code",
+                "client_id" => $options->qqappid,
+                "client_secret" => $options->qqappkey,
+                "code" => $code,
+                "redirect_uri" => $options->qqredirect,
+                "fmt" => "json",
+                "need_openid" => 1
             ];
 
             return self::getQQOpenId($config);
