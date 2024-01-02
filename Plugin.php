@@ -29,7 +29,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  *
  * @package ZUtils
  * @author zrong
- * @version 0.0.1
+ * @version 0.0.2
  * @link https://zrong.life
  * @time 2023-12-31 08:44
  */
