@@ -67,8 +67,8 @@ class Geetest
                 <input type="hidden" name="gee_lot_number" value=""/>
                 <input type="hidden" name="gee_pass_token" value=""/>
 
-                <script src="{$jsSdk}" type="text/javascript"></script>
                 <script type="text/javascript">
+                
                     let captchaObj = undefined;
                     const selector = "{$selector}";
                     const product = "{$product}";
@@ -82,34 +82,39 @@ class Geetest
                     const captchaGenTimeEle = document.querySelector("input[name='gee_gen_time']");
                     const captchaLotNumberEle = document.querySelector("input[name='gee_lot_number']");
                     const captchaPassTokenEle = document.querySelector("input[name='gee_pass_token']");
-                                                                        
-                    initGeetest4({
-                        captchaId: "{$captchaId}",
-                        product: product,
-                        language: "{$language}",
-                        nativeButton: nativeButton,
-                        mask: mask,
-                        hideSuccess: hideSuccess === "on"
-                    }, function (captcha) {
-                        captcha.appendTo("#geetestCaptcha");
-                                            
-                        captcha.onReady(() => {
-                            captchaObj = captcha;
-                        });
-                        
-                        captcha.onSuccess(() => {
-                            const result = captcha.getValidate();
-                            captchaIdEle.value = result.captcha_id;
-                            captchaOutputEle.value = result.captcha_output;
-                            captchaGenTimeEle.value = result.gen_time;
-                            captchaLotNumberEle.value = result.lot_number;
-                            captchaPassTokenEle.value = result.pass_token;
+                
+                    const script = document.createElement("script");
+                    script.src = "{$jsSdk}";
+                    document.body.appendChild(script);
+                    script.onload = () => {
+                        initGeetest4({
+                            captchaId: "{$captchaId}",
+                            product: product,
+                            language: "{$language}",
+                            nativeButton: nativeButton,
+                            mask: mask,
+                            hideSuccess: hideSuccess === "on"
+                        }, function (captcha) {
+                            captcha.appendTo("#geetestCaptcha");
+                                                
+                            captcha.onReady(() => {
+                                captchaObj = captcha;
+                            });
                             
-                            if (product === "bind") {
-                                document.querySelector(selector).click();
-                            }
+                            captcha.onSuccess(() => {
+                                const result = captcha.getValidate();
+                                captchaIdEle.value = result.captcha_id;
+                                captchaOutputEle.value = result.captcha_output;
+                                captchaGenTimeEle.value = result.gen_time;
+                                captchaLotNumberEle.value = result.lot_number;
+                                captchaPassTokenEle.value = result.pass_token;
+                                
+                                if (product === "bind") {
+                                    document.querySelector(selector).click();
+                                }
+                            });
                         });
-                    });
+                    }
                     
                     function addClickListen() {
                         if (selector) {
@@ -118,6 +123,11 @@ class Geetest
                                 return;
                             }
                             document.querySelector(selector).addEventListener("click", (e) => {
+                                if (!captchaObj) {
+                                    alert("geetest sdk没有初始化，请稍后");
+                                    return;
+                                }
+                                
                                 if (
                                     !captchaIdEle.value ||
                                     !captchaOutputEle.value ||
