@@ -9,4 +9,4 @@
 - [ ] 评论邮件提醒
 - [ ] 回复评论邮件通知
 
-[使用说明](https://zrong.life/archives/1901.html)
+[使用说明](https://zrong.site/archives/cz1877.html)
