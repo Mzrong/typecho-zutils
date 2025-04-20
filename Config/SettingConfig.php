@@ -13,7 +13,7 @@ use TypechoPlugin\ZUtils\Lib\Methods;
  *
  * @author zrong
  * @email zengrong27@gmail.com
- * @link https://zrong.life
+ * @link https://zrong.site
  * @time 2024-01-02 12:38
  */
 class SettingConfig
@@ -26,7 +26,7 @@ class SettingConfig
         $methods = new Methods();
 
         $doc = new Layout("p", ["class" => self::$className, "style" => "font-size: 15px"]);
-        $doc->html("插件使用文档：<a href='https://zrong.life/archives/1901.html' target='_blank'>https://zrong.life/archives/1901.html</a>");
+        $doc->html("插件使用文档：<a href='https://zrong.site/archives/cz1877.html' target='_blank'>https://zrong.site/archives/cz1877.html</a>");
         $form->addItem($doc);
 
         $label = new Layout("h2", ["class" => self::$className]);

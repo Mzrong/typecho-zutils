@@ -11,7 +11,7 @@ use TypechoPlugin\ZUtils\Lib\QSdk;
  *
  * @author zrong
  * @email zengrong27@gmail.com
- * @link https://zrong.life
+ * @link https://zrong.site
  * @time 2024-01-02 12:51
  */
 class Assets

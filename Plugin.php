@@ -29,8 +29,8 @@ if (!defined('__TYPECHO_ROOT_DIR__')) {
  *
  * @package ZUtils
  * @author zrong
- * @version 0.0.2
- * @link https://zrong.life
+ * @version 0.0.3
+ * @link https://zrong.site
  * @time 2023-12-31 08:44
  */
 class Plugin implements PluginInterface

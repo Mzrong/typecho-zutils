@@ -9,7 +9,7 @@ use Typecho\Db;
  *
  * @author zrong
  * @email zengrong27@gmail.com
- * @link https://zrong.life
+ * @link https://zrong.site
  * @time 2023-12-31 08:46
  */
 class Methods
